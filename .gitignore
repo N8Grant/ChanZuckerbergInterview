@@ -1,0 +1,19 @@
+# GPT Generated
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ruff
+.__ruff_cache__/
+
+# Pre-commit
+.pre-commit-config.yaml~*
+
+# Environment files
+.env
+.venv/
+*.egg-info/
+
+# Test coverage
+.coverage
+htmlcov/

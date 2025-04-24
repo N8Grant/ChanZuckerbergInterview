@@ -45,3 +45,25 @@ environment.
 - Create a Docker container that uses your CLI to process data.
 - Build your image, test it, and share it with us.
 - Don't forget to add instructions in the README.md if you do.
+
+
+## For Devs
+
+### 1. Clone Repo
+```bash
+git clone https://github.com/N8Grant/ChanZuckerbergInterview.git
+cd ChanZuckerbergInterview
+```
+
+### 2. Install Package
+```bash
+pip install -e .[dev]
+pre-commit install
+```
+
+### 3. Run Tests
+```bash
+pytest
+```
+
+Now you can work on the package in dev mode as well as have pre-commits all hooked up for when you want to push changes.
