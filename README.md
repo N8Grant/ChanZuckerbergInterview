@@ -1,4 +1,4 @@
-# Chan Zuckerburg Biohub Coding Assessment
+# Chan Zuckerberg Biohub Coding Assessment
 This repo will contain all of the code related to the problems associated with the PDF given.
 
 
