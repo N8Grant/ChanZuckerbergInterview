@@ -18,6 +18,8 @@ __pycache__/
 # Test coverage
 .coverage
 htmlcov/
+build/*
+build
 
 data
 ./data/*
