@@ -1,0 +1,24 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ruff
+.__ruff_cache__/
+
+# Pre-commit
+.pre-commit-config.yaml~*
+
+# Environment files
+.env
+.venv/
+*.egg-info/
+
+./chanzuck/_version.py
+# Test coverage
+.coverage
+htmlcov/
+
+data
+./data/*
+.pytest_cache/*
+.pytest_cache

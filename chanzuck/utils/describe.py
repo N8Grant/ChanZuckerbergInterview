@@ -1,7 +1,9 @@
 import logging
 from pathlib import Path
+from typing import cast
 
 from iohub import open_ome_zarr
+from iohub.reader import Position
 
 logger = logging.getLogger(__name__)
 
@@ -37,16 +39,24 @@ def describe_dataset(dataset_path: str | Path) -> dict:
 
             # Iterate through each position in the well
             for pos_name, pos_node in well_node.positions():
+                pos_node = cast(Position, pos_node)
                 image = (
                     pos_node.data
                 )  # The actual image array (not multiscale)
                 axes = dataset.axes if hasattr(dataset, "axes") else "N/A"
 
                 # Check if image is multiscale and collect per-scale info
-                if hasattr(image, "is_multiscale") and image.is_multiscale:
+                filtered_array_keys = [
+                    int(k) for k in pos_node.array_keys() if k.isdigit()
+                ]
+                multiscale = False
+
+                if len(filtered_array_keys) > 1:
+                    multiscale = True
                     level_info = []
-                    for level_idx in range(len(image)):
-                        level = image[level_idx]
+                    for level_idx in filtered_array_keys:
+                        level = pos_node[level_idx]
+
                         level_info.append(
                             {
                                 "level": level_idx,
@@ -66,11 +76,7 @@ def describe_dataset(dataset_path: str | Path) -> dict:
                     ]
 
                 metadata["Wells"][well_name][pos_name] = {
-                    "multiscale": (
-                        image.is_multiscale
-                        if hasattr(image, "is_multiscale")
-                        else False
-                    ),
+                    "multiscale": multiscale,
                     "levels": level_info,
                     "axes": format_axes(axes),
                     "channels": (
@@ -111,9 +117,9 @@ def format_pretty_output(metadata: dict) -> str:
 
     wells = metadata.get("Wells", {})
     for well_name, positions in wells.items():
-        lines.append(f"🔹 Well: {well_name}")
+        lines.append(f"🔹 Well: {well_name} (Row/Col)")
         for pos_name, pos_data in positions.items():
-            lines.append(f"  ├── Position: {pos_name}")
+            lines.append(f"  ├── Acquitition ID: {pos_name}")
             lines.append(
                 f"  │   • Multiscale  : {'Yes' if pos_data.get('multiscale') else 'No'}"
             )

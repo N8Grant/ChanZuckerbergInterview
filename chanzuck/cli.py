@@ -20,5 +20,3 @@ cli.add_command(generate_stats)
 
 if __name__ == "__main__":
     cli()
-
-    pass
