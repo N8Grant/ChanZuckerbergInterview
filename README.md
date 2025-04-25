@@ -6,15 +6,15 @@ This repo will contain all of the code related to the problems associated with t
 Complete each of the tasks:
 
 ### Task 1
-- Convert the OME-TIFF to OME-Zarr using iohub
+- Convert the OME-TIFF to OME-Zarr using iohub ✅
 - Inspect the converted OME-Zarr and retrieve key metadata using iohub (i.e, array
 shapes, scale, channel names, chunk sizes, etc). Tell us what method you used and
-save them in a text file.
-- Write a CLI to parse and pretty print metadata information of an OME-Zarr store.
+save them in a text file. ✅
+- Write a CLI to parse and pretty print metadata information of an OME-Zarr store. ✅
 - Implement a PyTorch DataLoader that uses iohub and the OME-Zarr (Dataset 2) to
-read data.
+read data. ✅
 - Profile the time it takes to read the data and to run inference with a pre-trained model
-(e.g., those provided with torchivision).
+(e.g., those provided with torchivision). ✅
 
 ### Task 2
 - Leverages iohub to handle the OME-Zarr 5D dataset (T, C, Z, Y, X)

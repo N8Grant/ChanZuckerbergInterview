@@ -5,7 +5,6 @@ __all__ = ["__version__", "__version_tuple__", "version", "version_tuple"]
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
-
     VERSION_TUPLE = tuple[int | str, ...]
 else:
     VERSION_TUPLE = object
@@ -15,5 +14,5 @@ __version__: str
 __version_tuple__: VERSION_TUPLE
 version_tuple: VERSION_TUPLE
 
-__version__ = version = "0.1.0.dev5+ga711fa9.d20250424"
-__version_tuple__ = version_tuple = (0, 1, 0, "dev5", "ga711fa9.d20250424")
+__version__ = version = "0.1.0.dev6+g59fa42b.d20250425"
+__version_tuple__ = version_tuple = (0, 1, 0, "dev6", "g59fa42b.d20250425")

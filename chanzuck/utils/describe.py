@@ -42,11 +42,36 @@ def describe_dataset(dataset_path: str | Path) -> dict:
                 )  # The actual image array (not multiscale)
                 axes = dataset.axes if hasattr(dataset, "axes") else "N/A"
 
-                # Collect metadata for each position
+                # Check if image is multiscale and collect per-scale info
+                if hasattr(image, "is_multiscale") and image.is_multiscale:
+                    level_info = []
+                    for level_idx in range(len(image)):
+                        level = image[level_idx]
+                        level_info.append(
+                            {
+                                "level": level_idx,
+                                "shape": level.shape,
+                                "chunks": level.chunks,
+                                "dtype": str(level.dtype),
+                            }
+                        )
+                else:
+                    level_info = [
+                        {
+                            "level": 0,
+                            "shape": image.shape,
+                            "chunks": image.chunks,
+                            "dtype": str(image.dtype),
+                        }
+                    ]
+
                 metadata["Wells"][well_name][pos_name] = {
-                    "shape": image.shape,
-                    "chunks": image.chunks,
-                    "dtype": str(image.dtype),
+                    "multiscale": (
+                        image.is_multiscale
+                        if hasattr(image, "is_multiscale")
+                        else False
+                    ),
+                    "levels": level_info,
                     "axes": format_axes(axes),
                     "channels": (
                         pos_node.channel_names
@@ -77,7 +102,6 @@ def format_pretty_output(metadata: dict) -> str:
     """
     lines: list[str] = []
 
-    # Basic dataset-level info
     lines.append(
         f"📦 Dataset Type: {metadata.get('dataset_type', 'N/A').split('.')[-1].strip()}"
     )
@@ -91,14 +115,18 @@ def format_pretty_output(metadata: dict) -> str:
         for pos_name, pos_data in positions.items():
             lines.append(f"  ├── Position: {pos_name}")
             lines.append(
-                f"  │   • Shape       : {tuple(pos_data.get('shape', []))}"
+                f"  │   • Multiscale  : {'Yes' if pos_data.get('multiscale') else 'No'}"
             )
-            lines.append(
-                f"  │   • Chunks      : {tuple(pos_data.get('chunks', []))}"
-            )
-            lines.append(
-                f"  │   • Dtype       : {pos_data.get('dtype', 'N/A')}"
-            )
+            levels = pos_data.get("levels", [])
+            for level_info in levels:
+                lvl = level_info.get("level")
+                shape = tuple(level_info.get("shape", []))
+                chunks = tuple(level_info.get("chunks", []))
+                dtype = level_info.get("dtype", "N/A")
+                lines.append(f"  │     🔸 Level {lvl}")
+                lines.append(f"  │        • Shape  : {shape}")
+                lines.append(f"  │        • Chunks : {chunks}")
+                lines.append(f"  │        • Dtype  : {dtype}")
             lines.append(
                 f"  │   • Channels    : {pos_data.get('channels', 'N/A')}"
             )
