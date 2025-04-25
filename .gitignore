@@ -14,12 +14,13 @@ __pycache__/
 .venv/
 *.egg-info/
 
-./chanzuck/_version.py
+chanzuck/_version.py
 # Test coverage
 .coverage
 htmlcov/
 build/*
 build
+*_version.py
 
 data
 ./data/*
