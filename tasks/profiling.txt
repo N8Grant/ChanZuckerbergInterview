@@ -1,0 +1,25 @@
+🚀 Benchmarking Cellpose with GPU=✅
+📁 Dataset: data/20241107_infection.zarr
+🔬 Channels: [1]  |  Samples: 5
+  ✅ Sample 01  |  Load: 0.0570s  |  Infer: 11.7507s
+  ✅ Sample 02  |  Load: 0.0666s  |  Infer: 11.2960s
+  ✅ Sample 03  |  Load: 0.0823s  |  Infer: 11.4062s
+  ✅ Sample 04  |  Load: 0.0845s  |  Infer: 11.7007s
+  ✅ Sample 05  |  Load: 0.0934s  |  Infer: 12.3920s
+
+📊 Benchmark Summary:
+  📂 Avg Load Time     : 0.0768 sec
+  🧠 Avg Inference Time: 11.7091 sec
+
+🚀 Benchmarking Cellpose with GPU=❌
+📁 Dataset: data/20241107_infection.zarr
+🔬 Channels: [1]  |  Samples: 5
+  ✅ Sample 01  |  Load: 0.0845s  |  Infer: 139.1092s
+  ✅ Sample 02  |  Load: 0.0804s  |  Infer: 143.1981s
+  ✅ Sample 03  |  Load: 0.0826s  |  Infer: 135.8457s
+  ✅ Sample 04  |  Load: 0.0943s  |  Infer: 147.1287s
+  ✅ Sample 05  |  Load: 0.0621s  |  Infer: 145.5878s
+
+📊 Benchmark Summary:
+  📂 Avg Load Time     : 0.0808 sec
+  🧠 Avg Inference Time: 142.1739 sec

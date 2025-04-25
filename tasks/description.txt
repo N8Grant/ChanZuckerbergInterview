@@ -1,0 +1,22 @@
+📦 Dataset Type: Plate'>
+🧫 Plate Format: Yes
+
+🔹 Well: C/2
+  ├── Position: 000001
+  │   • Multiscale  : No
+  │     🔸 Level 0
+  │        • Shape  : (14, 3, 10, 800, 1100)
+  │        • Chunks : (1, 1, 10, 800, 1100)
+  │        • Dtype  : float32
+  │   • Channels    : ['Phase3D', 'nuclei_DAPI', 'virus_mCherry']
+  │   • Axes        : T (time, second); C (channel); Z (space, micrometer); Y (space, micrometer); X (space, micrometer)
+  │   • Path        : C/2/000001/0
+  ├── Position: 001000
+  │   • Multiscale  : No
+  │     🔸 Level 0
+  │        • Shape  : (14, 3, 10, 800, 1100)
+  │        • Chunks : (1, 1, 10, 800, 1100)
+  │        • Dtype  : float32
+  │   • Channels    : ['Phase3D', 'nuclei_DAPI', 'virus_mCherry']
+  │   • Axes        : T (time, second); C (channel); Z (space, micrometer); Y (space, micrometer); X (space, micrometer)
+  │   • Path        : C/2/001000/0

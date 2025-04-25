@@ -55,9 +55,10 @@ def run_benchmark(
         print("❌ No successful samples to report.")
 
 
-# 🔁 Run both GPU and CPU benchmarks
-dataset_path = "data/20241107_infection.zarr"
-channel_indices = [1]  # Set to DAPI channel or whichever you want
+if __name__ == "__main__":
+    # 🔁 Run both GPU and CPU benchmarks
+    dataset_path = "../data/20241107_infection.zarr"
+    channel_indices = [1]  # Set to DAPI channel or whichever you want
 
-run_benchmark(dataset_path, channel_indices, use_gpu=True)
-run_benchmark(dataset_path, channel_indices, use_gpu=False)
+    run_benchmark(dataset_path, channel_indices, use_gpu=True)
+    run_benchmark(dataset_path, channel_indices, use_gpu=False)
