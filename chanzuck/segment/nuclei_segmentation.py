@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import numpy as np
+import torch
 from cellpose import models
 from iohub import open_ome_zarr
 from scipy.ndimage import label as ndi_label
@@ -17,13 +18,16 @@ def segment_and_track_3d_over_time(
     zarr_path: str | Path,
     channel_index: int = 0,
     model_type: str = "cellpose",  # or "otsu"
-    use_gpu: bool = True,
+    use_gpu: bool = False,
     on_level: int = 0,
 ):
     loader = CellposeZarrLoader(zarr_path, channel_indices=[channel_index])
 
     if model_type == "cellpose":
         model = models.Cellpose(gpu=use_gpu, model_type="nuclei")
+    if use_gpu and not torch.cuda.is_available():
+        print("⚠️ GPU requested but not available. Falling back to CPU.")
+        use_gpu = False
 
     # Store scales and prepare output
     dataset_scales = []

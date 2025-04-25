@@ -30,7 +30,7 @@ from chanzuck.utils.describe import describe_dataset
 )
 @click.option(
     "--gpu/--no-gpu",
-    default=True,
+    default=False,
     show_default=True,
     help="Use GPU for segmentation if available (Cellpose only).",
 )
