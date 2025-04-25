@@ -5,6 +5,7 @@ import seaborn as sns
 from .stats import predict_infection
 
 
+# Gpt
 def plot_viral_intensity_over_time(
     pos_ids: list[str], list_of_dataframes: list[pd.DataFrame]
 ):
@@ -43,6 +44,7 @@ def plot_viral_intensity_over_time(
     plt.show()
 
 
+# Gpt
 def plot_cell_count_over_time(
     pos_ids: list[str], list_of_dataframes: list[pd.DataFrame]
 ):
@@ -59,6 +61,7 @@ def plot_cell_count_over_time(
     plt.show()
 
 
+# Modified previous from gpt
 def plot_mean_dapi_vs_virus(
     pos_ids: list[str], list_of_dataframes: list[pd.DataFrame]
 ):
@@ -79,6 +82,7 @@ def plot_mean_dapi_vs_virus(
     plt.show()
 
 
+# Modified previous from gpt
 def plot_phase_intensity_over_time(
     pos_ids: list[str], list_of_dataframes: list[pd.DataFrame]
 ):
@@ -95,6 +99,7 @@ def plot_phase_intensity_over_time(
     plt.show()
 
 
+# Modified previous from gpt
 def plot_predicted_infection_over_time(
     pos_ids: list[str], dfs: list[pd.DataFrame]
 ):
@@ -114,6 +119,7 @@ def plot_predicted_infection_over_time(
     plt.show()
 
 
+# Modified previous from gpt
 def plot_infection_rate_change_over_time(
     pos_ids: list[str], dfs: list[pd.DataFrame]
 ):

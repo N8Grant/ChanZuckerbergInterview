@@ -6,6 +6,7 @@ import click
 from chanzuck.utils.describe import describe_dataset, format_pretty_output
 
 
+# Chat gpt
 @click.command("describe")
 @click.option(
     "--dataset-path",

@@ -19,6 +19,7 @@ COPY . .
 ENV SETUPTOOLS_SCM_PRETEND_VERSION=0.0.1
 
 RUN pip install .
+# gpt
 RUN pip install --prefer-binary PyQt5
 
 ENTRYPOINT ["python", "-m", "chanzuck.cli"]

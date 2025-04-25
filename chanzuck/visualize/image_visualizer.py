@@ -23,6 +23,7 @@ default_colormaps = [
 ]
 
 
+# gpt
 def _safe_axis_labels(array_shape, axis_label_str):
     """
     Ensure axis_labels length matches array dimensions.

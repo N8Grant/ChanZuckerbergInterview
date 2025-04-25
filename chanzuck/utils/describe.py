@@ -96,6 +96,7 @@ def describe_dataset(dataset_path: str | Path) -> dict:
         ) from e
 
 
+# Gpt
 def format_pretty_output(metadata: dict) -> str:
     """
     Formats structured metadata into a human-readable CLI output string.
@@ -146,6 +147,7 @@ def format_pretty_output(metadata: dict) -> str:
     return "\n".join(lines)
 
 
+# Gpt
 def format_axes(axes_meta: str | list) -> str:
     """
     Formats axis metadata into a readable string.

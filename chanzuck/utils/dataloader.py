@@ -5,6 +5,7 @@ import numpy as np
 from iohub import open_ome_zarr
 
 
+# Modified gpt
 class CellposeZarrLoader:
     def __init__(
         self, zarr_path: str | Path, channel_indices: list[int] | None = None

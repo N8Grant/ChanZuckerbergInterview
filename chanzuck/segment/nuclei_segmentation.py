@@ -54,6 +54,7 @@ def segment_and_track_3d_over_time(
         pos_name = sample["position"]
         well_name = sample["well"]
 
+        # Chat gpt
         # --- Inference --- #
         if model_type == "cellpose":
             masks, *_ = model.eval(
@@ -81,6 +82,7 @@ def segment_and_track_3d_over_time(
         del image, sample, masks
 
 
+# Chat gpt
 def get_centroids(mask, filter_small: bool = True):
     """Returns centroids and labels for each region > 0 in a 3D mask, with optional area filtering."""
     props = regionprops(mask)
@@ -99,6 +101,7 @@ def get_centroids(mask, filter_small: bool = True):
     return np.array(centroids), np.array(labels)
 
 
+# Chat gpt
 def track_labels(
     prev_mask,
     curr_mask,

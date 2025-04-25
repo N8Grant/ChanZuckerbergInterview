@@ -7,10 +7,10 @@ from iohub import open_ome_zarr
 from iohub.reader import Position
 from skimage.filters import threshold_otsu
 from skimage.measure import regionprops_table
-from sklearn.ensemble import RandomForestClassifier
 from tqdm import tqdm
 
 
+# Gpt
 def extract_cell_stats(
     dataset_path: str | Path,
     seg_name: str = "Nuclei_Segmentation",
@@ -109,20 +109,6 @@ def predict_infection(df: pd.DataFrame) -> pd.DataFrame:
     df["infected"] = (df["mean_intensity-virus_mCherry"] > threshold).astype(
         int
     )
-
-    features = [
-        "area",
-        "centroid-0",  # Z position
-        "centroid-1",  # Z position
-        "centroid-2",  # Z position
-        "mean_intensity-virus_mCherry",
-        "mean_intensity-nuclei_DAPI",
-        "mean_intensity-Phase3D",
-    ]
-
-    clf = RandomForestClassifier(n_estimators=100, random_state=42)
-    clf.fit(df[features], df["infected"])
-    df["predicted_infected"] = clf.predict(df[features])
 
     return df
 
