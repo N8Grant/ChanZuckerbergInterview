@@ -21,6 +21,9 @@ import click
     help="Whether to visualize the stats after generating them.",
 )
 def generate_stats(dataset_path: str, stats_dir: str, visualize: bool):
+    """
+    Gather features over the segmented image and optionally display plots
+    """
     from chanzuck.spatial.stats import extract_cell_stats
 
     if not visualize:
