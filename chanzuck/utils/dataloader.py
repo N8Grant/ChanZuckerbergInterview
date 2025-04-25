@@ -10,7 +10,6 @@ class CellposeZarrLoader:
         self, zarr_path: str | Path, channel_indices: list[int] | None = None
     ):
         self.zarr_path = Path(zarr_path)
-        self.dataset = open_ome_zarr(self.zarr_path, mode="a")
         self.channel_indices = channel_indices or [0]
         self.dataset_shapes = None
         self.dataset_chunksizes = None
@@ -26,18 +25,18 @@ class CellposeZarrLoader:
         timepoint_entries = []
         self.dataset_shapes = []
         self.dataset_chunksizes = []
+        with open_ome_zarr(self.zarr_path, mode="r") as dataset:
+            for well_name, well in dataset.wells():
+                for pos_name, pos in well.positions():
+                    image = pos.data  # shape: (T, C, Z, Y, X)
+                    num_timepoints = image.shape[0]
+                    self.dataset_shapes.append(image.shape)
+                    self.dataset_chunksizes.append(image.chunks)
 
-        for well_name, well in self.dataset.wells():
-            for pos_name, pos in well.positions():
-                image = pos.data  # shape: (T, C, Z, Y, X)
-                num_timepoints = image.shape[0]
-                self.dataset_shapes.append(image.shape)
-                self.dataset_chunksizes.append(image.chunks)
-
-                for t in range(num_timepoints):
-                    timepoint_entries.append(
-                        (well_name, pos_name, t, image[t])
-                    )
+                    for t in range(num_timepoints):
+                        timepoint_entries.append(
+                            (well_name, pos_name, t, image[t])
+                        )
         return timepoint_entries
 
     def __len__(self):

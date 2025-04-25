@@ -5,7 +5,10 @@ import numpy as np
 import pandas as pd
 from iohub import open_ome_zarr
 from iohub.reader import Position
+from skimage.filters import threshold_otsu
 from skimage.measure import regionprops_table
+from sklearn.ensemble import RandomForestClassifier
+from tqdm import tqdm
 
 
 def extract_cell_stats(
@@ -32,7 +35,9 @@ def extract_cell_stats(
     combined_statistics = {}
     with open_ome_zarr(dataset_path, mode="r") as dataset:
         for well_id, well in dataset.wells():
-            for pos_id, pos in well.positions():
+            for pos_id, pos in tqdm(
+                well.positions(), desc="Collecting Statistics"
+            ):
                 pos = cast(Position, pos)
                 sample_stats = []
                 seg = pos[seg_name]  # shape: (T, Z, Y, X)
@@ -55,6 +60,7 @@ def extract_cell_stats(
                             "mean_intensity",
                             "max_intensity",
                             "min_intensity",
+                            "extent",
                         ],
                     )
                     df = pd.DataFrame(props)
@@ -70,8 +76,12 @@ def extract_cell_stats(
                 combined_statistics[well_id][pos_id] = well_pos_df
 
                 if save_dir:
-                    out_path = save_dir / f"{well_id}_{pos_id}_stats.csv"
-                    well_pos_df.to_csv(out_path, index=False)
+                    out_path = Path(save_dir) / well_id
+                    out_path.mkdir(
+                        parents=True, exist_ok=True
+                    )  # Ensure well-specific folder exists
+                    file_path = out_path / f"{pos_id}_stats.csv"
+                    well_pos_df.to_csv(file_path, index=False)
 
     return combined_statistics
 
@@ -91,6 +101,30 @@ def rename_channel_columns(
             if col.endswith(suffix) and not col.startswith("centroid"):
                 renamed_columns[col] = col.replace(suffix, f"-{ch}")
     return df.rename(columns=renamed_columns)
+
+
+def predict_infection(df: pd.DataFrame) -> pd.DataFrame:
+    # Heuristic infection label
+    threshold = threshold_otsu(df["mean_intensity-virus_mCherry"].values)
+    df["infected"] = (df["mean_intensity-virus_mCherry"] > threshold).astype(
+        int
+    )
+
+    features = [
+        "area",
+        "centroid-0",  # Z position
+        "centroid-1",  # Z position
+        "centroid-2",  # Z position
+        "mean_intensity-virus_mCherry",
+        "mean_intensity-nuclei_DAPI",
+        "mean_intensity-Phase3D",
+    ]
+
+    clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    clf.fit(df[features], df["infected"])
+    df["predicted_infected"] = clf.predict(df[features])
+
+    return df
 
 
 # Example usage for manual runs

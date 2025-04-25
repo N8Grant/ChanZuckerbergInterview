@@ -14,27 +14,28 @@ examine the given cell datasets.
 """
 
 from chanzuck.segment.nuclei_segmentation import segment_and_track_3d_over_time
+from chanzuck.spatial.stats import extract_cell_stats
 
 
 def run_segmentation(
-    dataset_path: str,
-    nuclei_channel_index: int,
-    use_gpu: bool = True,
+    dataset_path: str, nuclei_channel_index: int, save_dir: str
 ):
-    print(f"📁 Dataset: {dataset_path}")
-    print(f"🔬 Channels: {nuclei_channel_index} ")
 
+    # Run segmentation
     segment_and_track_3d_over_time(
         dataset_path,
         nuclei_channel_index,
         model_type="otsu",
-        use_gpu=use_gpu,
         on_level=0,
     )
 
+    # Extract statistics from the images
+    extract_cell_stats(dataset_path=dataset_path, save_dir=save_dir)
+
 
 # 🔁 Run both GPU and CPU benchmarks
-dataset_path = "data/20241107_infection.zarr"
+dataset_path = "./data/20241107_infection.zarr"
+save_dir = "./data/statistics_folder"
 nuclei_channel_index = 1  # Set to DAPI channel or whichever you want
 
-run_segmentation(dataset_path, nuclei_channel_index)
+run_segmentation(dataset_path, nuclei_channel_index, save_dir)

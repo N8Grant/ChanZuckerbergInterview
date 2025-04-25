@@ -1,6 +1,6 @@
 from click.testing import CliRunner
 
-from chanzuck.cli import describe
+from chanzuck.cli_helpers import describe
 
 
 def test_describe_valid_mocked_dataset(mocker):
