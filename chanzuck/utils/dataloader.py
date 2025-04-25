@@ -12,11 +12,11 @@ class CellposeZarrLoader:
         self.zarr_path = Path(zarr_path)
         self.dataset = open_ome_zarr(self.zarr_path, mode="a")
         self.channel_indices = channel_indices or [0]
+        self.dataset_shapes = None
+        self.dataset_chunksizes = None
         self.entries: list[tuple[str, str, int, da.Array]] = (
             self._gather_timepoint_entries()
         )
-        self.dataset_shapes = None
-        self.dataset_chunksizes = None
 
     def _gather_timepoint_entries(self):
         """

@@ -17,10 +17,10 @@ read data. ✅
 (e.g., those provided with torchivision). ✅
 
 ### Task 2
-- Leverages iohub to handle the OME-Zarr 5D dataset (T, C, Z, Y, X)
-- Performs some basic image analysis
+- Leverages iohub to handle the OME-Zarr 5D dataset (T, C, Z, Y, X) ✅
+- Performs some basic image analysis ✅
 - Segment the cells’ nuclei from your channel of choice and store the
-segmentations into an OME-Zarr store using iohub as Zarr Arrays.
+segmentations into an OME-Zarr store using iohub as Zarr Arrays. ✅
 - Computes at least 5 metrics or algorithms to characterize and detect the infection
 dynamics. (e.g. intensity, segmentation, etc). Can you find the infected cells?
 - Generates visualizations of image data and the image analysis results (i.e, matplotlib,
@@ -36,11 +36,11 @@ different hardware resources?
 
 ### Task 3
 - Implement a command line interface (CLI) on top of this to interact with your image
-management and analysis API.
+management and analysis API. ✅
 - Create a spec-conformant Python package that can be installed with frontends like pip
 and uv. Make sure that the dependencies resolve correctly with a fresh virtual
-environment.
-- Implement your CLI so that it shows a progress bar for long processing steps.
+environment. ✅
+- Implement your CLI so that it shows a progress bar for long processing steps. ✅
 - Don't forget to add usage instructions in the README.md.
 - Create a Docker container that uses your CLI to process data.
 - Build your image, test it, and share it with us.

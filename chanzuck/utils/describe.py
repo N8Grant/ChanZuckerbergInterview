@@ -170,4 +170,4 @@ def format_axes(axes_meta: str | list) -> str:
         else:
             parts.append(name)
 
-    return ", ".join(parts)
+    return "; ".join(parts)

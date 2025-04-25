@@ -14,6 +14,7 @@ __pycache__/
 .venv/
 *.egg-info/
 
+./chanzuck/_version.py
 # Test coverage
 .coverage
 htmlcov/
